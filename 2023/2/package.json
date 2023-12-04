@@ -1,0 +1,12 @@
+{
+  "name": "adventofcode-2023-2",
+  "version": "1.0.0",
+  "author": "rbutera",
+  "dependencies": {
+    "ramda": "^0.29.1"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "private": false,
+  "repository": "https://github.com/rbutera/adventofcode"
+}
