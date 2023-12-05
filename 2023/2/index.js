@@ -107,7 +107,6 @@ Game 97: 5 blue, 3 red, 8 green; 7 red, 14 green, 1 blue; 11 green
 Game 98: 1 green, 12 blue, 7 red; 6 red, 7 blue, 1 green; 5 red, 11 blue, 1 green; 2 green, 8 red, 8 blue
 Game 99: 11 red, 7 blue, 15 green; 3 red, 11 green, 5 blue; 19 green, 5 red, 1 blue; 7 green, 4 red
 Game 100: 10 red; 11 blue, 12 red; 1 green, 7 blue, 6 red
-
 `;
 
 function getMaxes(input) {
@@ -131,6 +130,10 @@ function getMaxes(input) {
   return maxes;
 }
 
+function calculatePower(input) {
+  return input.red * input.green * input.blue;
+}
+
 function splitGames(input) {
   const games = input.replace(/\t/g, "").trim().split("\n");
   const asGames = games.map((game) => game.split(":"));
@@ -152,10 +155,12 @@ function splitGames(input) {
       };
     });
     const maxes = getMaxes(pulls);
+    const power = calculatePower(maxes);
     return {
       id,
       pulls,
       maxes,
+      power,
     };
   });
 }
@@ -183,10 +188,25 @@ function getPossibleGames(allGames, configuration) {
   return possibleGames.reduce((prev, current) => prev + current, 0);
 }
 
-console.log(
-  getPossibleGames(games.input, {
+function partOne() {
+  return getPossibleGames(games.input, {
     red: 12,
     green: 13,
     blue: 14,
-  })
-);
+  });
+}
+
+function partTwo(set) {
+  if (!["training", "input"].includes(set)) {
+    throw new Error("please provide a set out of training or input");
+  }
+  const results = games[set];
+
+  const output = results.reduce((prev, curr) => {
+    return prev + curr.power;
+  }, 0);
+
+  console.log(output);
+}
+
+partTwo("input");
